@@ -1,87 +1,33 @@
-# Welcome to React Router!
+# Welcome to LJ-Time!
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## Protobuf
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+### Install Protobuf
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+[connectrpc docs](https://connectrpc.com/docs/go/getting-started)
 
 ```bash
-npm install
+go install github.com/bufbuild/buf/cmd/buf@latest
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
 ```
 
-### Development
-
-Start the development server with HMR:
+Make sure to have the following in your `PATH`:
 
 ```bash
-npm run dev
+$ [ -n "$(go env GOBIN)" ] && export PATH="$(go env GOBIN):${PATH}"
+$ [ -n "$(go env GOPATH)" ] && export PATH="$(go env GOPATH)/bin:${PATH}"
 ```
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
+### Generate Protobuf
 
 ```bash
-npm run build
+protoc --go_out=. --go-grpc_out=. proto/**/*.proto
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
+#### Macos
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+brew install protobuf
 ```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
