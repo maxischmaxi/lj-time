@@ -1,5 +1,5 @@
 import { createClient } from "@connectrpc/connect";
-import { createConnectTransport } from "@connectrpc/connect-node";
+import { createConnectTransport } from "@connectrpc/connect-web";
 import {
     CustomerService,
     type CreateCustomer,
@@ -9,7 +9,6 @@ import { ProjectService, type Project } from "project/v1/project_pb";
 
 const transport = createConnectTransport({
     baseUrl: import.meta.env.VITE_API_GATEWAY,
-    httpVersion: "1.1",
 });
 
 const customerClient = createClient(CustomerService, transport);
