@@ -18,7 +18,7 @@ export default function Projects({
                 </tr>
             </thead>
             <tbody>
-                {projects.map((project) => (
+                {projects?.map((project) => (
                     <tr key={project.id}>
                         <td>{project.id}</td>
                         <td>{project.name}</td>

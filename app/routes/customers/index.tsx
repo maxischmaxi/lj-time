@@ -2,7 +2,7 @@ import { getCustomers } from "~/api";
 import type { Route } from "./+types";
 import { Link } from "react-router";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader() {
     const customers = await getCustomers();
     return { customers };
 }
@@ -23,7 +23,7 @@ export default async function Customers({
                     </tr>
                 </thead>
                 <tbody>
-                    {customers.map((customer) => (
+                    {customers?.map((customer) => (
                         <tr key={customer.id}>
                             <td>{customer.id}</td>
                             <td>{customer.name}</td>

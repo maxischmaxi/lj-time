@@ -14,22 +14,39 @@ const transport = createConnectTransport({
 const customerClient = createClient(CustomerService, transport);
 const projectClient = createClient(ProjectService, transport);
 
-export async function getCustomers(): Promise<Customer[]> {
-    return await customerClient.getCustomers({}).then((res) => res.customers);
+function onErr(err: unknown): undefined {
+    console.error(err);
+    return undefined;
 }
 
-export async function getProjects(): Promise<Project[]> {
-    return await projectClient.getProjects({}).then((res) => res.projects);
+export async function getCustomers(): Promise<Customer[] | undefined> {
+    return await customerClient
+        .getCustomers({})
+        .then((res) => res.customers)
+        .catch(onErr);
 }
 
-export async function getProjectsByCustomer(id: string): Promise<Project[]> {
+export async function getProjects(): Promise<Project[] | undefined> {
+    return await projectClient
+        .getProjects({})
+        .then((res) => res.projects)
+        .catch(onErr);
+}
+
+export async function getProjectsByCustomer(
+    id: string
+): Promise<Project[] | undefined> {
     return await projectClient
         .getProjectsByCustomer({ customerId: id })
-        .then((res) => res.projects);
+        .then((res) => res.projects)
+        .catch(onErr);
 }
 
-export async function deleteProject(id: string): Promise<string> {
-    return await projectClient.deleteProject({ id }).then((res) => res.id);
+export async function deleteProject(id: string): Promise<string | undefined> {
+    return await projectClient
+        .deleteProject({ id })
+        .then((res) => res.id)
+        .catch(onErr);
 }
 
 export async function updateProject(
@@ -37,19 +54,29 @@ export async function updateProject(
 ): Promise<Project | undefined> {
     return await projectClient
         .updateProject({ project: data })
-        .then((res) => res.project);
+        .then((res) => res.project)
+        .catch(onErr);
 }
 
 export async function getProject(id: string): Promise<Project | undefined> {
-    return await projectClient.getProject({ id }).then((res) => res.project);
+    return await projectClient
+        .getProject({ id })
+        .then((res) => res.project)
+        .catch(onErr);
 }
 
 export async function getCustomer(id: string): Promise<Customer | undefined> {
-    return await customerClient.getCustomer({ id }).then((res) => res.customer);
+    return await customerClient
+        .getCustomer({ id })
+        .then((res) => res.customer)
+        .catch(onErr);
 }
 
-export async function deleteCustomer(id: string): Promise<string> {
-    return await customerClient.deleteCustomer({ id }).then((res) => res.id);
+export async function deleteCustomer(id: string): Promise<string | undefined> {
+    return await customerClient
+        .deleteCustomer({ id })
+        .then((res) => res.id)
+        .catch(onErr);
 }
 
 export async function updateCustomer(
@@ -57,7 +84,8 @@ export async function updateCustomer(
 ): Promise<Customer | undefined> {
     return await customerClient
         .updateCustomer({ customer: data })
-        .then((res) => res.customer);
+        .then((res) => res.customer)
+        .catch(onErr);
 }
 
 export async function createCustomer(
@@ -65,5 +93,6 @@ export async function createCustomer(
 ): Promise<Customer | undefined> {
     return await customerClient
         .createCustomer({ customer: data })
-        .then((res) => res.customer);
+        .then((res) => res.customer)
+        .catch(onErr);
 }
