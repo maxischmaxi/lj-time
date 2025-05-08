@@ -31,3 +31,20 @@ protoc --go_out=. --go-grpc_out=. proto/**/*.proto
 ```bash
 brew install protobuf
 ```
+
+## Development
+
+### Start React
+
+```bash
+npm run dev
+```
+
+### Start go
+
+```bash
+cd server
+air
+```
+
+## Protobuf Files
