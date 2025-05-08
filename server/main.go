@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/maxischmaxi/ljtime-api/customer/v1/customerv1connect"
@@ -16,11 +18,19 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
+// "mongodb://root:example@localhost:27017"
+
 func main() {
+	mongoURI := os.Getenv("MONGO_URL")
+	if mongoURI == "" {
+		fmt.Println("MONGO_URL not set, using default")
+		mongoURI = "mongodb://root:example@localhost:27017"
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	client, err := mongo.Connect(options.Client().ApplyURI("mongodb://root:example@localhost:27017"))
+	client, err := mongo.Connect(options.Client().ApplyURI(mongoURI))
 	if err != nil {
 		log.Fatal(err)
 	}
