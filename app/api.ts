@@ -8,7 +8,7 @@ import {
 import { ProjectService, type Project } from "project/v1/project_pb";
 
 const transport = createConnectTransport({
-    baseUrl: "http://localhost:8080",
+    baseUrl: import.meta.env.VITE_API_GATEWAY,
     httpVersion: "1.1",
 });
 
