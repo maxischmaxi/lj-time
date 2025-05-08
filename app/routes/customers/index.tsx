@@ -1,6 +1,7 @@
 import { getCustomers } from "~/api";
 import type { Route } from "./+types";
-import { Link } from "react-router";
+import { CustomersTable } from "~/components/customers-table";
+import type { Customer } from "customer/v1/customer_pb";
 
 export async function loader() {
     const customers = await getCustomers();
@@ -11,28 +12,10 @@ export default async function Customers({
     loaderData: { customers },
 }: Route.ComponentProps) {
     return (
-        <div>
-            <Link to="/customers/create">Create Customer</Link>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customers?.map((customer) => (
-                        <tr key={customer.id}>
-                            <td>{customer.id}</td>
-                            <td>{customer.name}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.phone}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+            {customers && (
+                <CustomersTable customers={customers as Customer[]} />
+            )}
         </div>
     );
 }
